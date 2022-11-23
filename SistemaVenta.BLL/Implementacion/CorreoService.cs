@@ -10,6 +10,7 @@ using System.Net.Mail;
 using SistemaVenta.BLL.Interfaces;
 using SistemaVenta.DAL.Interfaces;
 using SistemaVenta.Entity;
+using Azure;
 
 namespace SistemaVenta.BLL.Implementacion
 {
@@ -44,21 +45,21 @@ namespace SistemaVenta.BLL.Implementacion
 
                 var clienteServidor = new SmtpClient()
                 {
-                    Host = "host",
+                    Host = Config["host"],
                     Port = int.Parse(Config["puerto"]),
                     Credentials = credenciales,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    EnableSsl= true
+                    EnableSsl = true
                 };
 
                 clienteServidor.Send(correo);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
+                return false;
             }
         }
     }

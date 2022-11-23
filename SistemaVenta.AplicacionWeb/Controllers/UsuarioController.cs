@@ -39,7 +39,7 @@ namespace SistemaVenta.AplicacionWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Lista()
         {
-            List<VMUsuario> vmUsuarioLista = _mapper.Map<List<VMUsuario>>(await _rolServicio.Lista());
+            List<VMUsuario> vmUsuarioLista = _mapper.Map<List<VMUsuario>>(await _usuarioServicio.Lista());
 
             return StatusCode(StatusCodes.Status200OK, new { data=vmUsuarioLista});
         }

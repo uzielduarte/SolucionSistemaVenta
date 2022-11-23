@@ -43,8 +43,8 @@ namespace SistemaVenta.BLL.Implementacion
                     {
                         AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
                         ThrowOnCancel = true
-                    }
-                    ).Child(Config[CarpetaDestino])
+                    })
+                    .Child(Config[CarpetaDestino])
                     .Child(NombreArchivo)
                     .PutAsync(StreamArchivo, cancellation.Token);
                 

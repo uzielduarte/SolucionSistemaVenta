@@ -10,6 +10,7 @@ using System.Text;
 using SistemaVenta.BLL.Interfaces;
 using SistemaVenta.DAL.Interfaces;
 using SistemaVenta.Entity;
+using Microsoft.Identity.Client;
 
 namespace SistemaVenta.BLL.Implementacion
 {
@@ -67,6 +68,15 @@ namespace SistemaVenta.BLL.Implementacion
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UrlPlantillaCorreo);
                     HttpWebResponse response= (HttpWebResponse)request.GetResponse();
 
+                    //Stream NewReqstream = request.GetRequestStream(); //<-- Error here
+                    ////NewReqstream.Write(cmd, 0, cmd.Length);
+                    //NewReqstream.Close();
+
+                    //// Get the response
+                    //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    //Console.WriteLine("Connected..");
+                    //MessageBox.show(request.GetResponse().ToString);
+                    
                     if(response.StatusCode==HttpStatusCode.OK)
                     {
                         using(Stream dataStream = response.GetResponseStream())
@@ -94,10 +104,10 @@ namespace SistemaVenta.BLL.Implementacion
 
                 return usuario_creado;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;  
+                throw e;
             }
         }
 
@@ -118,6 +128,7 @@ namespace SistemaVenta.BLL.Implementacion
                 usuario_editar.Correo = entidad.Correo;
                 usuario_editar.Telefono = entidad.Telefono;
                 usuario_editar.IdRol = entidad.IdRol;
+                usuario_editar.EsActivo= entidad.EsActivo;
 
                 if (usuario_editar.NombreFoto == "")
                     usuario_editar.NombreFoto = NombreFoto;
